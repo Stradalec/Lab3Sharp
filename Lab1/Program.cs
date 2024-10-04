@@ -7,12 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Text;
-using MathNet.Symbolics;
 using System.Reflection;
-
-
-
-using Microsoft.VisualBasic;
+using NCalc;
+using NCalc.Domain;
+using MathNet.Numerics;
+using Flee.PublicTypes;
+using static DevExpress.Xpo.Helpers.PerformanceCounters;
+using DevExpress.Utils;
 
 namespace Lab1
 {
@@ -33,6 +34,7 @@ namespace Lab1
         event EventHandler<EventArgs> StartDichotomy;
         event EventHandler<EventArgs> CreateGraph;
         event EventHandler<EventArgs> StartGoldenRatio;
+        event EventHandler<EventArgs> StartNewton;
     }
 
 
@@ -46,7 +48,6 @@ namespace Lab1
             double limit = Convert.ToDouble(interval);
             double functionLimit = Convert.ToDouble(downLimitation);
             double upFunctionLimit = Convert.ToDouble(upLimitation);
-            double xIntercept = double.NaN;
             List<DataPoint> dot = new List<DataPoint>();
 
             var plotModel = new PlotModel { Title = "График функции f(x)" };
@@ -79,19 +80,16 @@ namespace Lab1
                 Color = OxyColor.FromRgb(0, 0, 255) // Синий цвет линии
             };
 
-            var Function = Infix.ParseOrThrow(function);
+            var context = new ExpressionContext();
 
             //expression = new Expression($"f({1})", Function);
             int lowIndex = Convert.ToInt32(functionLimit);
             int upIndex = Convert.ToInt32(upFunctionLimit);
-            for (int counterI = -lowIndex; counterI <= upIndex; ++counterI)
+            for (double counterI = -lowIndex; counterI <= upIndex; ++counterI)
             {
-                FloatingPoint x1 = counterI;
-                var variables = new Dictionary<string, FloatingPoint>
-                {
-                     { "x", x1 }
-                };
-                var y = Evaluate.Evaluate(variables, Function).RealValue;
+                context.Variables["x"] = counterI;
+                var expression = context.CompileGeneric<double>(function);
+                double y = expression.Evaluate();
                 lineSeries.Points.Add(new DataPoint(counterI, y));
             }
 
@@ -111,68 +109,47 @@ namespace Lab1
             double result = double.NaN;
             double currentResult = 0;
             double errorCheck = 0;
+            double first = 0;
+            double second = 0;
 
-            var function = Infix.ParseOrThrow(inputFunction);
+            var context = new ExpressionContext();
 
-            FloatingPoint leftLimit = leftLimitation;
-            var left = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", leftLimit }
-            };
-
-            var leftY = Evaluate.Evaluate(left, function).RealValue;
-
-            FloatingPoint rightLimit = rightLimitation;
-            var right = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", rightLimit }
-            };
-
-            var rightY = Evaluate.Evaluate(right, function).RealValue;
-
-
+          
             while ((rightLimitation - leftLimitation) >= epsilon)
             {
                 currentResult = (leftLimitation + rightLimitation) / 2;
-                FloatingPoint temp = currentResult;
-                var middle = new Dictionary<string, FloatingPoint>
-                {
-                     { "x", temp }
-                };
-                double position = Evaluate.Evaluate(middle, function).RealValue;
+                context.Variables["x"] = currentResult;
+                var expression = context.CompileGeneric<double>(inputFunction);
+                double position = expression.Evaluate();
+
+                context.Variables["x"] = leftLimitation;
+                expression = context.CompileGeneric<double>(inputFunction);
+                var leftY = expression.Evaluate();
+                first = leftY;
+
+                context.Variables["x"] = rightLimitation;
+                expression = context.CompileGeneric<double>(inputFunction);
+                var rightY = expression.Evaluate();
+                second = rightY;
 
                 if (Math.Abs(position) == 0) // Найден точный корень
                 {
                     result = currentResult;
                     return (result, errorCheck);
                 }
-                else if (rightY * position < 0) // Корень в левой половине интервала
+                else if (leftY * position < 0) // Корень в левой половине интервала
                 {
                     rightLimitation = currentResult;
-                    rightLimit = rightLimitation;
-                    right = new Dictionary<string, FloatingPoint>
-                    {
-                         { "x", rightLimit }
-                    };
-
-                    rightY = Evaluate.Evaluate(right, function).RealValue;
                 }
                 else // Корень в правой половине интервала
                 {
                     leftLimitation = currentResult;
-                    leftLimit = leftLimitation;
-                    left = new Dictionary<string, FloatingPoint>
-                    {
-                          { "x", leftLimit }
-                    };
-
-                    leftY = Evaluate.Evaluate(left, function).RealValue;
                 }
             }
 
             result = currentResult;
 
-            if (leftY * rightY > 0)
+            if (first * second > 0)
             {
                 errorCheck = 1;
             }
@@ -188,106 +165,100 @@ namespace Lab1
         {
             double result = double.NaN;
             double functionResult = 0;
-            Expression function;
+            double goldenRatio = (Math.Sqrt(5) + 1) / 2;
+            var context = new ExpressionContext();
             if (!choice)
             {
-                string str = "-(" + inputExpression + ")";
-                function = Infix.ParseOrThrow(str);
-            }
-            else
-            {
-                function = Infix.ParseOrThrow(inputExpression);
+                inputExpression = "-(" + inputExpression + ")";
             }
 
-            FloatingPoint leftLimit = leftLimitation;
-            var left = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", leftLimit }
-            };
-
-            var leftY = Evaluate.Evaluate(left, function).RealValue;
-
-            FloatingPoint rightLimit = rightLimitation;
-            var right = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", rightLimit }
-            };
-
-            var rightY = Evaluate.Evaluate(right, function).RealValue;
-
-            double goldenRatio = (Math.Sqrt(5) - 1) / 2;
-
-            double xFirst = rightLimitation - goldenRatio * (rightLimitation - leftLimitation);
-            double xSecond = leftLimitation + goldenRatio * (rightLimitation - leftLimitation);
-
-            FloatingPoint firstX = xFirst;
-            var CreateXFirst = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", firstX }
-            };
-            var resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
-
-            FloatingPoint secondX = xSecond;
-            var CreateXSecond = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", secondX }
-            };
-            var resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
+            double xFirst = rightLimitation - (rightLimitation - leftLimitation) / goldenRatio;
+            double xSecond = leftLimitation + (rightLimitation - leftLimitation) / goldenRatio;
+            double resultFirst = 0;
+            double resultSecond = 0;
 
 
             while (Math.Abs(rightLimitation - leftLimitation) > epsilon)
             {
-                if (resultOfXFirst < resultOfXSecond)
+                context.Variables["x"] = xFirst;
+                var expression = context.CompileGeneric<double>(inputExpression);
+                resultFirst = expression.Evaluate();
+
+                context.Variables["x"] = xSecond;
+                expression = context.CompileGeneric<double>(inputExpression);
+                resultSecond = expression.Evaluate();
+
+                if (resultFirst < resultSecond)
                 {
                     rightLimitation = xSecond;
                     xSecond = xFirst;
-                    xFirst = rightLimitation - goldenRatio * (rightLimitation - leftLimitation);
-                    firstX = xFirst;
-                    CreateXFirst = new Dictionary<string, FloatingPoint>
-                    {
-                          { "x", firstX }
-                    };
-                    resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
-                    secondX = xSecond;
-                    CreateXSecond = new Dictionary<string, FloatingPoint>
-                    {
-                            { "x", secondX }
-                    };
-                    resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
+                    xFirst = rightLimitation - (rightLimitation - leftLimitation) / goldenRatio;
                 }
                 else
                 {
                     leftLimitation = xFirst;
                     xFirst = xSecond;
-                    xSecond = leftLimitation + goldenRatio * (rightLimitation - leftLimitation);
-                    CreateXFirst = new Dictionary<string, FloatingPoint>
-                    {
-                          { "x", firstX }
-                    };
-                    resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
-                    secondX = xSecond;
-                    CreateXSecond = new Dictionary<string, FloatingPoint>
-                    {
-                            { "x", secondX }
-                    };
-                    resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
+                    xSecond = leftLimitation + (rightLimitation - leftLimitation) / goldenRatio;
                 }
             }
             result = (leftLimitation + rightLimitation) / 2;
-            FloatingPoint resultX = result;
-            var CreateResult = new Dictionary<string, FloatingPoint>
-            {
-                     { "x", resultX }
-            };
-            functionResult = Evaluate.Evaluate(CreateResult, function).RealValue;
+            context.Variables["x"] = result;
+            var resultExpression = context.CompileGeneric<double>(inputExpression);
+            functionResult = resultExpression.Evaluate();
 
             return (result, functionResult);
         }
 
-        //public (double,double) Newton(string inputFunction, double inputApproximation, double epsilon)
-        //{
-        //    var function = Infix.PareseOrThrow
-        //}
+        public (double, double) Newton(string inputFunction, double inputApproximation, double epsilon, double step)
+        {
+            double result = 0;
+            double functionResult = 0;
+            double current = inputApproximation;
+            double next = 0;
+            
+            bool IsWorking = true;
+
+            while (IsWorking) 
+            {
+                // Вычисляем значение функции в текущей точке
+                var context = new ExpressionContext();
+                context.Variables["x"] = current;
+                var expression = context.CompileGeneric<double>(inputFunction);
+                double ResultAtCurrent = expression.Evaluate();
+
+                // Вычисляем значение функции в точке currentEstimate + smallStep для производной
+                context.Variables["x"] = current + step;
+                expression = context.CompileGeneric<double>(inputFunction);
+                double ResultAtNext = expression.Evaluate();
+
+                // Приближенное значение производной
+                double derivativeAtCurrent = (ResultAtNext - ResultAtCurrent) / step;
+
+                // Проверка на ноль производной
+                if (Math.Abs(derivativeAtCurrent) < 1e-10)
+                {
+                    IsWorking = false;
+                    return (double.NaN, double.NaN);                    
+                }
+
+                // Обновляем значение
+                next = current - ResultAtCurrent / derivativeAtCurrent;
+
+                // Проверяем условие остановки
+                if (Math.Abs(next- current) < epsilon)
+                {
+                    result = next;
+                    context.Variables["x"] = result;
+                    expression = context.CompileGeneric<double>(inputFunction);
+                    functionResult = expression.Evaluate();
+                    break;
+                }
+                    
+
+                current = next;
+            }
+            return (result, functionResult);
+        }
 
     }
 
@@ -305,6 +276,13 @@ namespace Lab1
             mainView.StartDichotomy += new EventHandler<EventArgs>(Dichotomy);
             mainView.CreateGraph += new EventHandler<EventArgs>(CreateGraph);
             mainView.StartGoldenRatio += new EventHandler<EventArgs>(GoldenRatio);
+            mainView.StartNewton += new EventHandler<EventArgs>(Newton);
+        }
+
+        private void Newton(object sender, EventArgs inputEvent)
+        {
+            var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide());
+            mainView.ShowResult(output.Item1, output.Item2);
         }
 
         private void Dichotomy(object sender, EventArgs inputEvent)

@@ -175,7 +175,7 @@ namespace Lab1
         public event EventHandler<EventArgs> StartDichotomy;
         public event EventHandler<EventArgs> CreateGraph;
         public event EventHandler<EventArgs> StartGoldenRatio;
-
+        public event EventHandler<EventArgs> StartNewton;
 
         void IView.ShowGraph(PlotModel plotModel)
         {
