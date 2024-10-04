@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using org.mariuszgromada.math.mxparser;
-using LiveCharts.Wpf.Charts.Base;
 using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
@@ -20,8 +18,6 @@ namespace Lab1
 {
     public partial class dichotomyForm : Form, IView
     {
-        private Expression expression;
-        private Function Function;
 
         private Size formOriginalSize;
         private Rectangle recCalculateButton;
@@ -145,15 +141,6 @@ namespace Lab1
             return Convert.ToDouble(epsilonBox.Text);
         }
 
-        Expression IView.Expression() 
-        {
-            return expression; 
-        }
-
-        Function IView.Function()
-        {
-            return Function;
-        }
 
         bool IView.MinimumOrMaximum()
         {
@@ -165,11 +152,9 @@ namespace Lab1
         public event EventHandler<EventArgs> StartGoldenRatio;
 
 
-        void IView.ShowGraph(PlotModel plotModel, Function outputFunction, Expression outputExpression)
+        void IView.ShowGraph(PlotModel plotModel)
         {
             this.pvGraph.Model = plotModel;
-            expression = outputExpression;
-            Function = outputFunction;
         }
         void IView.ShowResult(double result, double errorCheck) 
         {

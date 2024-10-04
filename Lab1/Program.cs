@@ -6,8 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using org.mariuszgromada.math.mxparser;
 using System.Drawing.Text;
+using MathNet.Symbolics;
+using System.Reflection;
+
+
+
+using Microsoft.VisualBasic;
 
 namespace Lab1
 {
@@ -20,11 +25,9 @@ namespace Lab1
         double firstSide();
         double secondSide();
         double epsilon();
-        Expression Expression();
-        Function Function();
 
         bool MinimumOrMaximum();
-        void ShowGraph(PlotModel plotModel, Function outputFunction, Expression outputExpression);
+        void ShowGraph(PlotModel plotModel);
         void ShowResult(double input, double errorCheck);
 
         event EventHandler<EventArgs> StartDichotomy;
@@ -36,10 +39,10 @@ namespace Lab1
     // Модель. Основная часть работы программы происходит здесь
     class Model
     {
-        public (PlotModel, Function, Expression) CreateGraph(double interval, double downLimitation, double upLimitation, string function)
+        public PlotModel CreateGraph(double interval, double downLimitation, double upLimitation, string function)
         {
-            Expression expression; 
-            Function Function;
+            //Expression expression = new Expression(); 
+            //Function Function;
             double limit = Convert.ToDouble(interval);
             double functionLimit = Convert.ToDouble(downLimitation);
             double upFunctionLimit = Convert.ToDouble(upLimitation);
@@ -76,21 +79,20 @@ namespace Lab1
                 Color = OxyColor.FromRgb(0, 0, 255) // Синий цвет линии
             };
 
-            Function = new Function("f(x) = " + function);
+            var Function = Infix.ParseOrThrow(function);
 
-            expression = new Expression($"f({1})", Function);
+            //expression = new Expression($"f({1})", Function);
             int lowIndex = Convert.ToInt32(functionLimit);
             int upIndex = Convert.ToInt32(upFunctionLimit);
             for (int counterI = -lowIndex; counterI <= upIndex; ++counterI)
             {
-                expression = new Expression($"f({counterI})", Function);
-                expression.setArgumentValue("x", counterI);
-                double y = expression.calculate();
-                if (y == 0)
+                FloatingPoint x1 = counterI;
+                var variables = new Dictionary<string, FloatingPoint>
                 {
-                    xIntercept = counterI;
-                }
-                dot.Add(new DataPoint(counterI, y));
+                     { "x", x1 }
+                };
+                var y = Evaluate.Evaluate(variables, Function).RealValue;
+                lineSeries.Points.Add(new DataPoint(counterI, y));
             }
 
             // Добавляем все точки в серию
@@ -101,44 +103,76 @@ namespace Lab1
             plotModel.Series.Add(ordinate);
             plotModel.Series.Add(absicc);
 
-            return (plotModel, Function, expression);
+            return plotModel;
         }
-        public (double, double) Dichotomy(Function inputFunction, Expression inputExpression, double leftLimitation, double rightLimitation, double epsilon)
+
+        public (double, double) Dichotomy(string inputFunction, double leftLimitation, double rightLimitation, double epsilon)
         {
             double result = double.NaN;
             double currentResult = 0;
             double errorCheck = 0;
 
+            var function = Infix.ParseOrThrow(inputFunction);
 
-            double firstValue = SolveFunc(inputFunction, leftLimitation.ToString().Replace(",", "."));
+            FloatingPoint leftLimit = leftLimitation;
+            var left = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", leftLimit }
+            };
 
-            double secondValue = SolveFunc(inputFunction, rightLimitation.ToString().Replace(",", "."));
-                       
+            var leftY = Evaluate.Evaluate(left, function).RealValue;
+
+            FloatingPoint rightLimit = rightLimitation;
+            var right = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", rightLimit }
+            };
+
+            var rightY = Evaluate.Evaluate(right, function).RealValue;
+
 
             while ((rightLimitation - leftLimitation) >= epsilon)
             {
                 currentResult = (leftLimitation + rightLimitation) / 2;
-                double position = SolveFunc(inputFunction, currentResult.ToString().Replace(",", "."));
+                FloatingPoint temp = currentResult;
+                var middle = new Dictionary<string, FloatingPoint>
+                {
+                     { "x", temp }
+                };
+                double position = Evaluate.Evaluate(middle, function).RealValue;
 
                 if (Math.Abs(position) == 0) // Найден точный корень
                 {
                     result = currentResult;
                     return (result, errorCheck);
                 }
-                else if (firstValue  * position < 0) // Корень в левой половине интервала
+                else if (rightY * position < 0) // Корень в левой половине интервала
                 {
                     rightLimitation = currentResult;
-                    secondValue = SolveFunc(inputFunction, rightLimitation.ToString().Replace(",", "."));
+                    rightLimit = rightLimitation;
+                    right = new Dictionary<string, FloatingPoint>
+                    {
+                         { "x", rightLimit }
+                    };
+
+                    rightY = Evaluate.Evaluate(right, function).RealValue;
                 }
                 else // Корень в правой половине интервала
                 {
                     leftLimitation = currentResult;
-                    firstValue = SolveFunc(inputFunction, leftLimitation.ToString().Replace(",", "."));
+                    leftLimit = leftLimitation;
+                    left = new Dictionary<string, FloatingPoint>
+                    {
+                          { "x", leftLimit }
+                    };
+
+                    leftY = Evaluate.Evaluate(left, function).RealValue;
                 }
             }
+
             result = currentResult;
 
-            if (firstValue * secondValue > 0)
+            if (leftY * rightY > 0)
             {
                 errorCheck = 1;
             }
@@ -150,59 +184,111 @@ namespace Lab1
             return (result, errorCheck);
         }
 
-        public (double, double) GoldenRatio(Function inputFunction, string inputExpression, double leftLimitation, double rightLimitation, double epsilon, bool choice = true)
+        public (double, double) GoldenRatio(string inputExpression, double leftLimitation, double rightLimitation, double epsilon, bool choice = true)
         {
             double result = double.NaN;
             double functionResult = 0;
-
+            Expression function;
             if (!choice)
             {
                 string str = "-(" + inputExpression + ")";
-                inputFunction = new Function("f(x) = " + str);
+                function = Infix.ParseOrThrow(str);
+            }
+            else
+            {
+                function = Infix.ParseOrThrow(inputExpression);
             }
 
-            double firstValue = SolveFunc(inputFunction, leftLimitation.ToString().Replace(",", "."));
+            FloatingPoint leftLimit = leftLimitation;
+            var left = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", leftLimit }
+            };
 
-            double secondValue = SolveFunc(inputFunction, rightLimitation.ToString().Replace(",", "."));
+            var leftY = Evaluate.Evaluate(left, function).RealValue;
+
+            FloatingPoint rightLimit = rightLimitation;
+            var right = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", rightLimit }
+            };
+
+            var rightY = Evaluate.Evaluate(right, function).RealValue;
 
             double goldenRatio = (Math.Sqrt(5) - 1) / 2;
 
             double xFirst = rightLimitation - goldenRatio * (rightLimitation - leftLimitation);
             double xSecond = leftLimitation + goldenRatio * (rightLimitation - leftLimitation);
 
-            double resultOfXFirst = SolveFunc(inputFunction, xFirst.ToString().Replace(",", "."));
-            double resultOfXSecond = SolveFunc(inputFunction, xSecond.ToString().Replace(",", "."));
+            FloatingPoint firstX = xFirst;
+            var CreateXFirst = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", firstX }
+            };
+            var resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
+
+            FloatingPoint secondX = xSecond;
+            var CreateXSecond = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", secondX }
+            };
+            var resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
 
 
             while (Math.Abs(rightLimitation - leftLimitation) > epsilon)
             {
-                if (resultOfXFirst < resultOfXSecond) 
+                if (resultOfXFirst < resultOfXSecond)
                 {
                     rightLimitation = xSecond;
                     xSecond = xFirst;
                     xFirst = rightLimitation - goldenRatio * (rightLimitation - leftLimitation);
-                    resultOfXFirst = SolveFunc(inputFunction, xFirst.ToString().Replace(",", "."));
-                    resultOfXSecond = SolveFunc(inputFunction, xSecond.ToString().Replace(",", "."));
+                    firstX = xFirst;
+                    CreateXFirst = new Dictionary<string, FloatingPoint>
+                    {
+                          { "x", firstX }
+                    };
+                    resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
+                    secondX = xSecond;
+                    CreateXSecond = new Dictionary<string, FloatingPoint>
+                    {
+                            { "x", secondX }
+                    };
+                    resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
                 }
-                else 
+                else
                 {
                     leftLimitation = xFirst;
                     xFirst = xSecond;
                     xSecond = leftLimitation + goldenRatio * (rightLimitation - leftLimitation);
-                    resultOfXFirst = SolveFunc(inputFunction, xFirst.ToString().Replace(",", "."));
-                    resultOfXSecond = SolveFunc(inputFunction, xSecond.ToString().Replace(",", "."));
+                    CreateXFirst = new Dictionary<string, FloatingPoint>
+                    {
+                          { "x", firstX }
+                    };
+                    resultOfXFirst = Evaluate.Evaluate(CreateXFirst, function).RealValue;
+                    secondX = xSecond;
+                    CreateXSecond = new Dictionary<string, FloatingPoint>
+                    {
+                            { "x", secondX }
+                    };
+                    resultOfXSecond = Evaluate.Evaluate(CreateXSecond, function).RealValue;
                 }
             }
             result = (leftLimitation + rightLimitation) / 2;
-            functionResult = SolveFunc(inputFunction, result.ToString().Replace(",", "."));
+            FloatingPoint resultX = result;
+            var CreateResult = new Dictionary<string, FloatingPoint>
+            {
+                     { "x", resultX }
+            };
+            functionResult = Evaluate.Evaluate(CreateResult, function).RealValue;
 
             return (result, functionResult);
         }
 
-        public double SolveFunc(Function function, string x)
-        {
-            return new org.mariuszgromada.math.mxparser.Expression($"f({x})", function).calculate();
-        }
+        //public (double,double) Newton(string inputFunction, double inputApproximation, double epsilon)
+        //{
+        //    var function = Infix.PareseOrThrow
+        //}
+
     }
 
     // Презентер. Извлекает данные из модели, передает в вид. Обрабатывает события
@@ -223,18 +309,18 @@ namespace Lab1
 
         private void Dichotomy(object sender, EventArgs inputEvent)
         {
-            var output = model.Dichotomy(mainView.Function(),mainView.Expression(), mainView.firstSide(), mainView.secondSide(), mainView.epsilon());
+            var output = model.Dichotomy(mainView.returnFunction(), mainView.firstSide(), mainView.secondSide(), mainView.epsilon());
             mainView.ShowResult(output.Item1, output.Item2);
         }
         private void CreateGraph(object sender, EventArgs inputEvent)
         {
             var output = model.CreateGraph(mainView.Interval(), mainView.lowLimit(), mainView.upLimit(), mainView.returnFunction());
-            mainView.ShowGraph(output.Item1, output.Item2, output.Item3);
+            mainView.ShowGraph(output);
         }
 
         private void GoldenRatio(object sender, EventArgs inputEvent)
         {
-            var output = model.GoldenRatio(mainView.Function(), mainView.returnFunction(), mainView.firstSide(), mainView.secondSide(), mainView.epsilon(), mainView.MinimumOrMaximum());
+            var output = model.GoldenRatio(mainView.returnFunction(), mainView.firstSide(), mainView.secondSide(), mainView.epsilon(), mainView.MinimumOrMaximum());
             mainView.ShowResult(output.Item1, output.Item2);
         }
     }

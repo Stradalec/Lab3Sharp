@@ -1,5 +1,4 @@
-﻿using org.mariuszgromada.math.mxparser;
-using OxyPlot;
+﻿using OxyPlot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,8 +15,6 @@ namespace Lab1
     public partial class GoldenRatioForm : Form, IView
     {
 
-        private Expression expression;
-        private Function Function;
         private bool checkExistence = false;
 
         private Size formOriginalSize;
@@ -156,15 +153,6 @@ namespace Lab1
             return Convert.ToDouble(epsilonBox.Text);
         }
 
-        Expression IView.Expression()
-        {
-            return expression;
-        }
-
-        Function IView.Function()
-        {
-            return Function;
-        }
 
 
         bool IView.MinimumOrMaximum()
@@ -189,11 +177,9 @@ namespace Lab1
         public event EventHandler<EventArgs> StartGoldenRatio;
 
 
-        void IView.ShowGraph(PlotModel plotModel, Function outputFunction, Expression outputExpression)
+        void IView.ShowGraph(PlotModel plotModel)
         {
             this.pvGraph.Model = plotModel;
-            expression = outputExpression;
-            Function = outputFunction;
             checkExistence = true;
         }
         void IView.ShowResult(double result, double functionResult)
