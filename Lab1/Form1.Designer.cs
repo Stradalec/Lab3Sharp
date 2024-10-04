@@ -31,6 +31,7 @@
             this.dichotomyButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.GoldenRatioButton = new System.Windows.Forms.Button();
+            this.NewtonButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.NewtonButton, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.dichotomyButton, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.GoldenRatioButton, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(35, 67);
@@ -77,6 +79,18 @@
             this.GoldenRatioButton.UseVisualStyleBackColor = true;
             this.GoldenRatioButton.Click += new System.EventHandler(this.GoldenRatioButton_Click);
             // 
+            // NewtonButton
+            // 
+            this.NewtonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.NewtonButton.AutoSize = true;
+            this.NewtonButton.Location = new System.Drawing.Point(29, 83);
+            this.NewtonButton.Name = "NewtonButton";
+            this.NewtonButton.Size = new System.Drawing.Size(109, 64);
+            this.NewtonButton.TabIndex = 2;
+            this.NewtonButton.Text = "Метод Ньютона";
+            this.NewtonButton.UseVisualStyleBackColor = true;
+            this.NewtonButton.Click += new System.EventHandler(this.NewtonButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,6 +113,7 @@
         private System.Windows.Forms.Button dichotomyButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button GoldenRatioButton;
+        private System.Windows.Forms.Button NewtonButton;
     }
 }
 
