@@ -41,7 +41,6 @@
             this.epsilonBox = new System.Windows.Forms.TextBox();
             this.rightLabel = new System.Windows.Forms.Label();
             this.leftLabel = new System.Windows.Forms.Label();
-            this.limitationLabel = new System.Windows.Forms.Label();
             this.functionLabel = new System.Windows.Forms.Label();
             this.SecondIntervalLimitation = new System.Windows.Forms.TextBox();
             this.FirstIntervalLimitation = new System.Windows.Forms.TextBox();
@@ -50,7 +49,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.maximumButton = new System.Windows.Forms.RadioButton();
+            this.minimumButton = new System.Windows.Forms.RadioButton();
+            this.IterationLabel = new System.Windows.Forms.Label();
+            this.IterationBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -59,7 +64,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(69, 20);
             this.textBox1.TabIndex = 45;
-            this.textBox1.Text = "0";
+            this.textBox1.Text = "5";
             // 
             // label7
             // 
@@ -103,7 +108,7 @@
             this.functionLimitBox.Name = "functionLimitBox";
             this.functionLimitBox.Size = new System.Drawing.Size(69, 20);
             this.functionLimitBox.TabIndex = 40;
-            this.functionLimitBox.Text = "0";
+            this.functionLimitBox.Text = "5";
             // 
             // interval
             // 
@@ -111,12 +116,12 @@
             this.interval.Name = "interval";
             this.interval.Size = new System.Drawing.Size(69, 20);
             this.interval.TabIndex = 39;
-            this.interval.Text = "0";
+            this.interval.Text = "5";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 328);
+            this.label2.Location = new System.Drawing.Point(9, 394);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(278, 13);
             this.label2.TabIndex = 38;
@@ -125,7 +130,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(197, 267);
+            this.label1.Location = new System.Drawing.Point(21, 284);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 37;
@@ -133,7 +138,7 @@
             // 
             // LimitationBox
             // 
-            this.LimitationBox.Location = new System.Drawing.Point(115, 344);
+            this.LimitationBox.Location = new System.Drawing.Point(103, 410);
             this.LimitationBox.Name = "LimitationBox";
             this.LimitationBox.Size = new System.Drawing.Size(69, 20);
             this.LimitationBox.TabIndex = 36;
@@ -141,7 +146,7 @@
             // 
             // epsilonBox
             // 
-            this.epsilonBox.Location = new System.Drawing.Point(197, 283);
+            this.epsilonBox.Location = new System.Drawing.Point(21, 300);
             this.epsilonBox.Name = "epsilonBox";
             this.epsilonBox.Size = new System.Drawing.Size(69, 20);
             this.epsilonBox.TabIndex = 35;
@@ -150,29 +155,20 @@
             // rightLabel
             // 
             this.rightLabel.AutoSize = true;
-            this.rightLabel.Location = new System.Drawing.Point(112, 267);
+            this.rightLabel.Location = new System.Drawing.Point(175, 236);
             this.rightLabel.Name = "rightLabel";
-            this.rightLabel.Size = new System.Drawing.Size(45, 13);
+            this.rightLabel.Size = new System.Drawing.Size(104, 13);
             this.rightLabel.TabIndex = 34;
-            this.rightLabel.Text = "Правое";
+            this.rightLabel.Text = "Зн. для числ. дифф";
             // 
             // leftLabel
             // 
             this.leftLabel.AutoSize = true;
-            this.leftLabel.Location = new System.Drawing.Point(24, 267);
+            this.leftLabel.Location = new System.Drawing.Point(24, 236);
             this.leftLabel.Name = "leftLabel";
-            this.leftLabel.Size = new System.Drawing.Size(39, 13);
+            this.leftLabel.Size = new System.Drawing.Size(133, 13);
             this.leftLabel.TabIndex = 33;
-            this.leftLabel.Text = "Левое";
-            // 
-            // limitationLabel
-            // 
-            this.limitationLabel.AutoSize = true;
-            this.limitationLabel.Location = new System.Drawing.Point(77, 244);
-            this.limitationLabel.Name = "limitationLabel";
-            this.limitationLabel.Size = new System.Drawing.Size(132, 13);
-            this.limitationLabel.TabIndex = 32;
-            this.limitationLabel.Text = "Ограничение интервала:";
+            this.leftLabel.Text = "Начальное приближение";
             // 
             // functionLabel
             // 
@@ -185,19 +181,19 @@
             // 
             // SecondIntervalLimitation
             // 
-            this.SecondIntervalLimitation.Location = new System.Drawing.Point(115, 283);
+            this.SecondIntervalLimitation.Location = new System.Drawing.Point(178, 252);
             this.SecondIntervalLimitation.Name = "SecondIntervalLimitation";
             this.SecondIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.SecondIntervalLimitation.TabIndex = 30;
-            this.SecondIntervalLimitation.Text = "0";
+            this.SecondIntervalLimitation.Text = "0,01";
             // 
             // FirstIntervalLimitation
             // 
-            this.FirstIntervalLimitation.Location = new System.Drawing.Point(24, 283);
+            this.FirstIntervalLimitation.Location = new System.Drawing.Point(24, 252);
             this.FirstIntervalLimitation.Name = "FirstIntervalLimitation";
             this.FirstIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.FirstIntervalLimitation.TabIndex = 29;
-            this.FirstIntervalLimitation.Text = "-2";
+            this.FirstIntervalLimitation.Text = "0";
             // 
             // function
             // 
@@ -205,7 +201,7 @@
             this.function.Name = "function";
             this.function.Size = new System.Drawing.Size(276, 20);
             this.function.TabIndex = 28;
-            this.function.Text = "x +1";
+            this.function.Text = "(x-2) ^2";
             // 
             // pvGraph
             // 
@@ -250,11 +246,62 @@
             this.toolStripTextBox2.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolStripTextBox2.Click += new System.EventHandler(this.toolStripTextBox2_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.maximumButton);
+            this.groupBox1.Controls.Add(this.minimumButton);
+            this.groupBox1.Location = new System.Drawing.Point(128, 298);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(151, 67);
+            this.groupBox1.TabIndex = 48;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Ищем:";
+            // 
+            // maximumButton
+            // 
+            this.maximumButton.AutoSize = true;
+            this.maximumButton.Location = new System.Drawing.Point(15, 42);
+            this.maximumButton.Name = "maximumButton";
+            this.maximumButton.Size = new System.Drawing.Size(79, 17);
+            this.maximumButton.TabIndex = 1;
+            this.maximumButton.Text = "Максимум";
+            this.maximumButton.UseVisualStyleBackColor = true;
+            // 
+            // minimumButton
+            // 
+            this.minimumButton.AutoSize = true;
+            this.minimumButton.Location = new System.Drawing.Point(15, 19);
+            this.minimumButton.Name = "minimumButton";
+            this.minimumButton.Size = new System.Drawing.Size(73, 17);
+            this.minimumButton.TabIndex = 0;
+            this.minimumButton.Text = "Минимум";
+            this.minimumButton.UseVisualStyleBackColor = true;
+            // 
+            // IterationLabel
+            // 
+            this.IterationLabel.AutoSize = true;
+            this.IterationLabel.Location = new System.Drawing.Point(22, 333);
+            this.IterationLabel.Name = "IterationLabel";
+            this.IterationLabel.Size = new System.Drawing.Size(89, 13);
+            this.IterationLabel.TabIndex = 50;
+            this.IterationLabel.Text = "Число итераций";
+            // 
+            // IterationBox
+            // 
+            this.IterationBox.Location = new System.Drawing.Point(24, 353);
+            this.IterationBox.Name = "IterationBox";
+            this.IterationBox.Size = new System.Drawing.Size(69, 20);
+            this.IterationBox.TabIndex = 49;
+            this.IterationBox.Text = "10";
+            // 
             // Newton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.IterationLabel);
+            this.Controls.Add(this.IterationBox);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -268,7 +315,6 @@
             this.Controls.Add(this.epsilonBox);
             this.Controls.Add(this.rightLabel);
             this.Controls.Add(this.leftLabel);
-            this.Controls.Add(this.limitationLabel);
             this.Controls.Add(this.functionLabel);
             this.Controls.Add(this.SecondIntervalLimitation);
             this.Controls.Add(this.FirstIntervalLimitation);
@@ -279,6 +325,8 @@
             this.Text = "Newton";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,7 +347,6 @@
         private System.Windows.Forms.TextBox epsilonBox;
         private System.Windows.Forms.Label rightLabel;
         private System.Windows.Forms.Label leftLabel;
-        private System.Windows.Forms.Label limitationLabel;
         private System.Windows.Forms.Label functionLabel;
         private System.Windows.Forms.TextBox SecondIntervalLimitation;
         private System.Windows.Forms.TextBox FirstIntervalLimitation;
@@ -308,5 +355,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton maximumButton;
+        private System.Windows.Forms.RadioButton minimumButton;
+        internal System.Windows.Forms.Label IterationLabel;
+        private System.Windows.Forms.TextBox IterationBox;
     }
 }

@@ -18,7 +18,6 @@ namespace Lab1
         private bool checkExistence = false;
 
         private Size formOriginalSize;
-        private Rectangle recCalculateButton;
         private Rectangle recFunctionTextBox;
         private Rectangle recGraph;
         private Rectangle recLabel1;
@@ -120,6 +119,10 @@ namespace Lab1
             return Convert.ToDouble(textBox1.Text);
         }
 
+        double IView.iterationCount()
+        {
+            return 0;
+        }
         string IView.returnFunction()
         {
             if(function.Text.Contains("x"))

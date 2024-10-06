@@ -20,7 +20,6 @@ namespace Lab1
     {
 
         private Size formOriginalSize;
-        private Rectangle recCalculateButton;
         private Rectangle recFunctionTextBox;
         private Rectangle recGraph;
         private Rectangle recLabel1;
@@ -105,7 +104,10 @@ namespace Lab1
 
         }
 
-
+        double IView.iterationCount()
+        {
+            return 0;
+        }
         double IView.lowLimit()
         {
             return Convert.ToDouble(functionLimitBox.Text);
