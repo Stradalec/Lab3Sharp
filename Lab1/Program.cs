@@ -205,7 +205,7 @@ namespace Lab1
         }
 
        
-        public (double, double) Newton(string inputFunction, double inputApproximation, double epsilon, double step)
+        public (double, double) Newton(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount)
         {
             double result = 0;
             double functionResult = 0;
@@ -219,7 +219,7 @@ namespace Lab1
             context.Imports.AddType(typeof(Math));
             context.Variables["x"] = current;
             var expression = context.CompileGeneric<double>(inputFunction);
-            for (int iteration = 0; iteration < 100; ++iteration)
+            for (int iteration = 0; iteration < iterationCount; ++iteration)
             {
                 context.Variables["x"] = current;
                 double function = expression.Evaluate(); //Значение функции в x
@@ -288,7 +288,7 @@ namespace Lab1
 
         private void Newton(object sender, EventArgs inputEvent)
         {
-            var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide());
+            var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount());
             mainView.ShowResult(output.Item1, output.Item2);
         }
 

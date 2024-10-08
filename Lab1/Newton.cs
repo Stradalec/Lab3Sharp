@@ -116,7 +116,7 @@ namespace Lab1
 
         double IView.iterationCount()
         {
-            return 0;
+            return Convert.ToDouble(IterationBox.Text);
         }
 
         string IView.returnFunction()
@@ -173,19 +173,7 @@ namespace Lab1
         {
             result = Math.Round(result, Convert.ToInt16(LimitationBox.Text));
             functionResult = Math.Round(functionResult, Convert.ToInt16(LimitationBox.Text));
-            if (minimumButton.Checked)
-            {
-                MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (maximumButton.Checked)
-            {
-                functionResult = Math.Abs(functionResult);
-                MessageBox.Show("Максимум:" + result.ToString() + "\n" + "Значение максимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 

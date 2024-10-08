@@ -49,13 +49,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.maximumButton = new System.Windows.Forms.RadioButton();
-            this.minimumButton = new System.Windows.Forms.RadioButton();
             this.IterationLabel = new System.Windows.Forms.Label();
             this.IterationBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -246,41 +242,10 @@
             this.toolStripTextBox2.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolStripTextBox2.Click += new System.EventHandler(this.toolStripTextBox2_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.maximumButton);
-            this.groupBox1.Controls.Add(this.minimumButton);
-            this.groupBox1.Location = new System.Drawing.Point(128, 298);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(151, 67);
-            this.groupBox1.TabIndex = 48;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ищем:";
-            // 
-            // maximumButton
-            // 
-            this.maximumButton.AutoSize = true;
-            this.maximumButton.Location = new System.Drawing.Point(15, 42);
-            this.maximumButton.Name = "maximumButton";
-            this.maximumButton.Size = new System.Drawing.Size(79, 17);
-            this.maximumButton.TabIndex = 1;
-            this.maximumButton.Text = "Максимум";
-            this.maximumButton.UseVisualStyleBackColor = true;
-            // 
-            // minimumButton
-            // 
-            this.minimumButton.AutoSize = true;
-            this.minimumButton.Location = new System.Drawing.Point(15, 19);
-            this.minimumButton.Name = "minimumButton";
-            this.minimumButton.Size = new System.Drawing.Size(73, 17);
-            this.minimumButton.TabIndex = 0;
-            this.minimumButton.Text = "Минимум";
-            this.minimumButton.UseVisualStyleBackColor = true;
-            // 
             // IterationLabel
             // 
             this.IterationLabel.AutoSize = true;
-            this.IterationLabel.Location = new System.Drawing.Point(22, 333);
+            this.IterationLabel.Location = new System.Drawing.Point(158, 284);
             this.IterationLabel.Name = "IterationLabel";
             this.IterationLabel.Size = new System.Drawing.Size(89, 13);
             this.IterationLabel.TabIndex = 50;
@@ -288,7 +253,7 @@
             // 
             // IterationBox
             // 
-            this.IterationBox.Location = new System.Drawing.Point(24, 353);
+            this.IterationBox.Location = new System.Drawing.Point(160, 304);
             this.IterationBox.Name = "IterationBox";
             this.IterationBox.Size = new System.Drawing.Size(69, 20);
             this.IterationBox.TabIndex = 49;
@@ -301,7 +266,6 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.IterationLabel);
             this.Controls.Add(this.IterationBox);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -325,8 +289,6 @@
             this.Text = "Newton";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,9 +317,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton maximumButton;
-        private System.Windows.Forms.RadioButton minimumButton;
         internal System.Windows.Forms.Label IterationLabel;
         private System.Windows.Forms.TextBox IterationBox;
     }
