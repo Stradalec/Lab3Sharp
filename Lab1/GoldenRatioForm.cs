@@ -156,7 +156,10 @@ namespace Lab1
             return Convert.ToDouble(epsilonBox.Text);
         }
 
+        void IView.UpdateGraph(List<double[]> inputArr) 
+        {
 
+        }
 
         bool IView.MinimumOrMaximum()
         {

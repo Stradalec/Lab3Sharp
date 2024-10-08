@@ -154,6 +154,11 @@ namespace Lab1
         public event EventHandler<EventArgs> StartGoldenRatio;
         public event EventHandler<EventArgs> StartNewton;
 
+
+        void IView.UpdateGraph(List<double[]> inputArray)
+        {
+
+        }
         void IView.ShowGraph(PlotModel plotModel)
         {
             this.pvGraph.Model = plotModel;

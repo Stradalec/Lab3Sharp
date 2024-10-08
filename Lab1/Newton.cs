@@ -1,10 +1,13 @@
 ﻿using OxyPlot;
+using OxyPlot.Series;
+using OxyPlot.WindowsForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -152,7 +155,20 @@ namespace Lab1
             return Convert.ToDouble(epsilonBox.Text);
         }
 
-
+        void IView.UpdateGraph(List<double[]> inputArr) 
+        {
+            var plotModel = this.pvGraph.Model;
+            var lineSeries = new LineSeries {
+                Title = "точки производной",
+                Color = OxyColor.FromRgb(0, 128, 0) 
+            };
+            foreach (var line in inputArr) 
+            {
+                lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+            }
+            plotModel.Series.Add(lineSeries);
+            this.pvGraph.Model = plotModel;
+        }
 
         bool IView.MinimumOrMaximum()
         {

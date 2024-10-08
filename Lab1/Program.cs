@@ -22,6 +22,7 @@ namespace Lab1
         double secondSide();
         double epsilon();
 
+        void UpdateGraph(List<double[]> inputArr);
         double iterationCount();
         bool MinimumOrMaximum();
         void ShowGraph(PlotModel plotModel);
@@ -205,12 +206,13 @@ namespace Lab1
         }
 
        
-        public (double, double) Newton(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount)
+        public (double, double, List<double[]>) Newton(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount)
         {
             double result = 0;
             double functionResult = 0;
             double current = inputApproximation;
             double next = 0;
+            List<double[]> array = new List<double[]>();
             
 
             bool IsGood = true;
@@ -229,9 +231,11 @@ namespace Lab1
                 if (Math.Abs(derivative) < 1e-10)
                 {
                     IsGood = false;
-                    return (double.NaN, double.NaN);
+                    return (double.NaN, double.NaN, array);
                 }
                 next = current - function / derivative;
+                context.Variables["x"] = next;
+                array.Add(new double[] { next, expression.Evaluate() });
 
                 if (Math.Abs(next - current) < epsilon)
                 {
@@ -251,9 +255,11 @@ namespace Lab1
                 context.Variables["x"] = result;
                 expression = context.CompileGeneric<double>(inputFunction);
                 functionResult = expression.Evaluate();
+                context.Variables["x"] = next;
+                array.Add(new double[] { next, expression.Evaluate() });
             }
 
-            return (result, functionResult);
+            return (result, functionResult, array);
         }
 
         double NumericalDerivative(ExpressionContext context, IGenericExpression<double> expression, double x, double step)
@@ -290,6 +296,7 @@ namespace Lab1
         {
             var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount());
             mainView.ShowResult(output.Item1, output.Item2);
+            mainView.UpdateGraph(output.Item3);
         }
 
         private void Dichotomy(object sender, EventArgs inputEvent)
