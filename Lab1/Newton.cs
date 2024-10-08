@@ -37,9 +37,6 @@ namespace Lab1
         private Rectangle recSecondLimitationBox;
         private Rectangle recEpsilonBox;
         private Rectangle recLimitBox;
-        private Rectangle recGroupBox;
-        private Rectangle recMinumumRadio;
-        private Rectangle recMaximumRadio;
         private Rectangle recIterationLabel;
         private Rectangle recIterationBox;
         public Newton()
@@ -66,9 +63,6 @@ namespace Lab1
             recSecondLimitationBox = new Rectangle(SecondIntervalLimitation.Location, SecondIntervalLimitation.Size);
             recEpsilonBox = new Rectangle(epsilonBox.Location, epsilonBox.Size);
             recLimitBox = new Rectangle(LimitationBox.Location, LimitationBox.Size);
-            recGroupBox = new Rectangle(groupBox1.Location, groupBox1.Size);
-            recMinumumRadio = new Rectangle(minimumButton.Location, minimumButton.Size);
-            recMaximumRadio = new Rectangle(maximumButton.Location, maximumButton.Size);
             recIterationLabel = new Rectangle(IterationLabel.Location, IterationLabel.Size);
             recIterationBox = new Rectangle(IterationBox.Location, IterationBox.Size);
         }
@@ -107,9 +101,6 @@ namespace Lab1
             AutoResize(SecondIntervalLimitation, recSecondLimitationBox);
             AutoResize(epsilonBox, recEpsilonBox);
             AutoResize(LimitationBox, recLimitBox);
-            AutoResize(groupBox1, recGroupBox);
-            AutoResize(minimumButton, recMinumumRadio);
-            AutoResize(maximumButton, recMaximumRadio);
             AutoResize(IterationBox, recIterationBox);
             AutoResize(IterationLabel, recIterationLabel);
         }
@@ -165,19 +156,7 @@ namespace Lab1
 
         bool IView.MinimumOrMaximum()
         {
-            bool choice = true;
-            if (minimumButton.Checked == true)
-            {
-                return true;
-            }
-            else if (maximumButton.Checked == true)
-            {
-                return false;
-            }
-            else
-            {
-                return choice;
-            }
+            return true;
         }
 
         public event EventHandler<EventArgs> StartDichotomy;
