@@ -250,6 +250,7 @@ namespace Lab1
             {
                 if (checkExistence)
                 {
+                    CreateGraph(sender, inputEvent);
                     StartNewton(sender, inputEvent);
                 }
                 else
