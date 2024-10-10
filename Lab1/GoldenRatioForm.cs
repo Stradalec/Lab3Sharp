@@ -161,6 +161,13 @@ namespace Lab1
 
         }
 
+        byte IView.Choice()
+        {
+            byte choice = 1;
+
+            return choice;
+        }
+
         bool IView.MinimumOrMaximum()
         {
             bool choice = true;

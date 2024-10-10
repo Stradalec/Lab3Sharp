@@ -53,12 +53,17 @@
             this.IterationBox = new System.Windows.Forms.TextBox();
             this.GraphDesignLabel = new System.Windows.Forms.Label();
             this.MethodDesignLabel = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 221);
+            this.textBox1.Location = new System.Drawing.Point(30, 210);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(69, 20);
             this.textBox1.TabIndex = 45;
@@ -67,7 +72,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 203);
+            this.label7.Location = new System.Drawing.Point(27, 192);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(138, 13);
             this.label7.TabIndex = 44;
@@ -76,7 +81,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 155);
+            this.label6.Location = new System.Drawing.Point(27, 144);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 13);
             this.label6.TabIndex = 43;
@@ -85,7 +90,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(172, 155);
+            this.label5.Location = new System.Drawing.Point(175, 144);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 42;
@@ -94,7 +99,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 129);
+            this.label4.Location = new System.Drawing.Point(27, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(132, 13);
             this.label4.TabIndex = 41;
@@ -102,7 +107,7 @@
             // 
             // functionLimitBox
             // 
-            this.functionLimitBox.Location = new System.Drawing.Point(27, 171);
+            this.functionLimitBox.Location = new System.Drawing.Point(30, 160);
             this.functionLimitBox.Name = "functionLimitBox";
             this.functionLimitBox.Size = new System.Drawing.Size(69, 20);
             this.functionLimitBox.TabIndex = 40;
@@ -110,7 +115,7 @@
             // 
             // interval
             // 
-            this.interval.Location = new System.Drawing.Point(172, 174);
+            this.interval.Location = new System.Drawing.Point(175, 163);
             this.interval.Name = "interval";
             this.interval.Size = new System.Drawing.Size(69, 20);
             this.interval.TabIndex = 39;
@@ -119,16 +124,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 394);
+            this.label2.Location = new System.Drawing.Point(24, 378);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(278, 13);
+            this.label2.Size = new System.Drawing.Size(124, 13);
             this.label2.TabIndex = 38;
-            this.label2.Text = "Необходимая точность (число знаков после запятой)";
+            this.label2.Text = "Необходимая точность";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 336);
+            this.label1.Location = new System.Drawing.Point(27, 322);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 37;
@@ -136,7 +141,7 @@
             // 
             // LimitationBox
             // 
-            this.LimitationBox.Location = new System.Drawing.Point(99, 410);
+            this.LimitationBox.Location = new System.Drawing.Point(27, 394);
             this.LimitationBox.Name = "LimitationBox";
             this.LimitationBox.Size = new System.Drawing.Size(69, 20);
             this.LimitationBox.TabIndex = 36;
@@ -144,7 +149,7 @@
             // 
             // epsilonBox
             // 
-            this.epsilonBox.Location = new System.Drawing.Point(27, 352);
+            this.epsilonBox.Location = new System.Drawing.Point(27, 338);
             this.epsilonBox.Name = "epsilonBox";
             this.epsilonBox.Size = new System.Drawing.Size(69, 20);
             this.epsilonBox.TabIndex = 35;
@@ -153,7 +158,7 @@
             // rightLabel
             // 
             this.rightLabel.AutoSize = true;
-            this.rightLabel.Location = new System.Drawing.Point(164, 288);
+            this.rightLabel.Location = new System.Drawing.Point(164, 274);
             this.rightLabel.Name = "rightLabel";
             this.rightLabel.Size = new System.Drawing.Size(115, 13);
             this.rightLabel.TabIndex = 34;
@@ -162,7 +167,7 @@
             // leftLabel
             // 
             this.leftLabel.AutoSize = true;
-            this.leftLabel.Location = new System.Drawing.Point(24, 288);
+            this.leftLabel.Location = new System.Drawing.Point(24, 274);
             this.leftLabel.Name = "leftLabel";
             this.leftLabel.Size = new System.Drawing.Size(100, 13);
             this.leftLabel.TabIndex = 33;
@@ -179,7 +184,7 @@
             // 
             // SecondIntervalLimitation
             // 
-            this.SecondIntervalLimitation.Location = new System.Drawing.Point(167, 304);
+            this.SecondIntervalLimitation.Location = new System.Drawing.Point(167, 290);
             this.SecondIntervalLimitation.Name = "SecondIntervalLimitation";
             this.SecondIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.SecondIntervalLimitation.TabIndex = 30;
@@ -187,7 +192,7 @@
             // 
             // FirstIntervalLimitation
             // 
-            this.FirstIntervalLimitation.Location = new System.Drawing.Point(27, 304);
+            this.FirstIntervalLimitation.Location = new System.Drawing.Point(27, 290);
             this.FirstIntervalLimitation.Name = "FirstIntervalLimitation";
             this.FirstIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.FirstIntervalLimitation.TabIndex = 29;
@@ -247,7 +252,7 @@
             // IterationLabel
             // 
             this.IterationLabel.AutoSize = true;
-            this.IterationLabel.Location = new System.Drawing.Point(164, 336);
+            this.IterationLabel.Location = new System.Drawing.Point(164, 322);
             this.IterationLabel.Name = "IterationLabel";
             this.IterationLabel.Size = new System.Drawing.Size(89, 13);
             this.IterationLabel.TabIndex = 50;
@@ -255,7 +260,7 @@
             // 
             // IterationBox
             // 
-            this.IterationBox.Location = new System.Drawing.Point(167, 352);
+            this.IterationBox.Location = new System.Drawing.Point(167, 338);
             this.IterationBox.Name = "IterationBox";
             this.IterationBox.Size = new System.Drawing.Size(69, 20);
             this.IterationBox.TabIndex = 49;
@@ -275,17 +280,62 @@
             // 
             this.MethodDesignLabel.AutoSize = true;
             this.MethodDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MethodDesignLabel.Location = new System.Drawing.Point(23, 254);
+            this.MethodDesignLabel.Location = new System.Drawing.Point(23, 240);
             this.MethodDesignLabel.Name = "MethodDesignLabel";
             this.MethodDesignLabel.Size = new System.Drawing.Size(213, 20);
             this.MethodDesignLabel.TabIndex = 52;
             this.MethodDesignLabel.Text = "Настройка работы метода";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButton3);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Location = new System.Drawing.Point(167, 364);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(113, 74);
+            this.groupBox1.TabIndex = 53;
+            this.groupBox1.TabStop = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(8, 14);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(92, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Пересечение";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(8, 32);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(73, 17);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Минимум";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(8, 51);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(79, 17);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Максимум";
+            this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // Newton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.MethodDesignLabel);
             this.Controls.Add(this.GraphDesignLabel);
             this.Controls.Add(this.IterationLabel);
@@ -313,6 +363,8 @@
             this.Text = "Newton";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,5 +397,9 @@
         private System.Windows.Forms.TextBox IterationBox;
         private System.Windows.Forms.Label GraphDesignLabel;
         private System.Windows.Forms.Label MethodDesignLabel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

@@ -154,7 +154,12 @@ namespace Lab1
         public event EventHandler<EventArgs> StartGoldenRatio;
         public event EventHandler<EventArgs> StartNewton;
 
+        byte IView.Choice()
+        {
+            byte choice = 1;
 
+            return choice;
+        }
         void IView.UpdateGraph(List<double[]> inputArray)
         {
 

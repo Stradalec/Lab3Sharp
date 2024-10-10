@@ -128,6 +128,24 @@ namespace Lab1
             return Convert.ToDouble(IterationBox.Text);
         }
 
+
+        byte IView.Choice()
+        {
+            byte choice = 1;
+            if (radioButton1.Checked)
+            {
+                choice = 1;
+            }
+            else if (radioButton2.Checked)
+            {
+                choice = 2;
+            }
+            else if(radioButton3.Checked)
+            {
+                choice = 3;
+            }
+            return choice;
+        }
         string IView.returnFunction()
         {
             if (function.Text.Contains("x"))
@@ -195,7 +213,19 @@ namespace Lab1
         {
             result = Math.Round(result, Convert.ToInt16(LimitationBox.Text));
             functionResult = Math.Round(functionResult, Convert.ToInt16(LimitationBox.Text));
-            MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (radioButton2.Checked)
+            {
+                MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (radioButton3.Checked)
+            {
+                functionResult = Math.Abs(functionResult);
+                MessageBox.Show("Максимум:" + result.ToString() + "\n" + "Значение максимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (radioButton1.Checked)
+            {
+                MessageBox.Show("Точка пересечения:" + result.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
         }
 

@@ -22,6 +22,7 @@ namespace Lab1
         double secondSide();
         double epsilon();
 
+        byte Choice();
         void UpdateGraph(List<double[]> inputArr);
         double iterationCount();
         bool MinimumOrMaximum();
@@ -206,58 +207,130 @@ namespace Lab1
         }
 
        
-        public (double, double, List<double[]>) Newton(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount)
+        public (double, double, List<double[]>) Newton(string inputFunction, double inputApproximation, double epsilon, double step, double iterationCount, byte inputChoice)
         {
             double result = 0;
             double functionResult = 0;
             double current = inputApproximation;
             double next = 0;
+            double derivative = 0;
+            double secondDerivative = 0;
+            byte choice = 1;
+            string max;
             List<double[]> array = new List<double[]>();
             
 
             bool IsGood = true;
 
+            
+            choice = inputChoice;
+            if (choice == 3)
+            {
+                inputFunction = "-(" + inputFunction + ")";
+            }
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
             context.Variables["x"] = current;
             var expression = context.CompileGeneric<double>(inputFunction);
             for (int iteration = 0; iteration < iterationCount; ++iteration)
             {
-                context.Variables["x"] = current;
-                double function = expression.Evaluate(); //Значение функции в x
-                double derivative = NumericalDerivative(context, expression, current, step); //Численная производная
-
-                // Проверка на ноль
-                if (Math.Abs(derivative) < 1e-10)
+                switch(choice)
                 {
-                    IsGood = false;
-                    return (double.NaN, double.NaN, array);
-                }
-                next = current - function / derivative;
-                context.Variables["x"] = next;
-                array.Add(new double[] { next, expression.Evaluate() });
+                    case 1:
+                        context.Variables["x"] = current;
+                        double function = expression.Evaluate(); //Значение функции в x
+                        derivative = NumericalDerivative(context, expression, current, step); //Численная производная
 
-                if (Math.Abs(next - current) < epsilon)
-                {
-                    result = next;
-                    context.Variables["x"] = result;
-                    expression = context.CompileGeneric<double>(inputFunction);
-                    functionResult = expression.Evaluate();
-                    break;
-                }
+                        // Проверка на ноль
+                        if (Math.Abs(derivative) < 1e-10)
+                        {
+                            IsGood = false;
+                            return (double.NaN, double.NaN, array);
+                        }
+                        next = current - function / derivative;
+                        context.Variables["x"] = next;
+                        array.Add(new double[] { next, expression.Evaluate() });
 
-                current = next;                                             
+                        if (Math.Abs(next - current) < epsilon)
+                        {
+                            result = next;
+                            context.Variables["x"] = result;
+                            expression = context.CompileGeneric<double>(inputFunction);
+                            functionResult = expression.Evaluate();
+                            break;
+                        }
+
+                        current = next;
+                        break;
+                    case 2:
+                        context.Variables["x"] = current;
+                        derivative = NumericalDerivative(context, expression, current, step); //Численная производная
+                        secondDerivative = NumericalSecondDerivative(context, expression, current, step);
+
+                        // Проверка на ноль
+                        if (Math.Abs(secondDerivative) < 1e-10)
+                        {
+                            IsGood = false;
+                            return (double.NaN, double.NaN, array);
+                        }
+                        
+                        next = current - derivative / secondDerivative;
+                        context.Variables["x"] = next;
+                        array.Add(new double[] { next, expression.Evaluate() });
+
+                        if (Math.Abs(derivative) < epsilon)
+                        {
+                            result = current;
+                            context.Variables["x"] = result;
+                            expression = context.CompileGeneric<double>(inputFunction);
+                            functionResult = expression.Evaluate();
+                            break;
+                        }
+
+                        current = next;
+                        break;
+                    case 3:
+                        context.Variables["x"] = current;
+                        derivative = NumericalDerivative(context, expression, current, step); //Численная производная
+                        secondDerivative = NumericalSecondDerivative(context, expression, current, step);
+
+                        // Проверка на ноль
+                        if (Math.Abs(secondDerivative) < 1e-10)
+                        {
+                            IsGood = false;
+                            return (double.NaN, double.NaN, array);
+                        }
+
+                        next = current - derivative / secondDerivative;
+                        context.Variables["x"] = next;
+                        array.Add(new double[] { next, expression.Evaluate() });
+
+                        if (Math.Abs(derivative) < epsilon)
+                        {
+                            result = current;
+                            context.Variables["x"] = result;
+                            expression = context.CompileGeneric<double>(inputFunction);
+                            functionResult = expression.Evaluate();
+                            break;
+                        }
+
+                        current = next;
+                        break;
+                    default:
+                        break;
+                }
+                                                          
             }
 
-            if (IsGood)
-            {
-                result = next;
-                context.Variables["x"] = result;
-                expression = context.CompileGeneric<double>(inputFunction);
-                functionResult = expression.Evaluate();
-                context.Variables["x"] = next;
-                array.Add(new double[] { next, expression.Evaluate() });
-            }
+            //if (IsGood)
+            //{
+            //    result = next;
+            //    context.Variables["x"] = result;
+            //    expression = context.CompileGeneric<double>(inputFunction);
+            //    functionResult = expression.Evaluate();
+            //    context.Variables["x"] = next;
+            //    array.Add(new double[] { next, expression.Evaluate() });
+            //}
 
             return (result, functionResult, array);
         }
@@ -272,6 +345,17 @@ namespace Lab1
             return (fxPlusH - fxMinusH) / (2 * h); //Центральная разность (метод нахождения 1 производной)
         }
 
+        double NumericalSecondDerivative(ExpressionContext context, IGenericExpression<double> expression, double x, double step)
+        {
+            double h = step;
+            context.Variables["x"] = x + h;
+            double fxPlusH = expression.Evaluate();
+            context.Variables["x"] = x - h;
+            double fxMinusH = expression.Evaluate();
+            context.Variables["x"] = x;
+            double fxOriginal = expression.Evaluate();
+            return (fxPlusH - 2 * fxOriginal + fxMinusH) / (h * h); //Центральная разность (метод нахождения 2 производной)
+        }
     }
 
     
@@ -294,7 +378,7 @@ namespace Lab1
 
         private void Newton(object sender, EventArgs inputEvent)
         {
-            var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount());
+            var output = model.Newton(mainView.returnFunction(), mainView.firstSide(), mainView.epsilon(), mainView.secondSide(), mainView.iterationCount(), mainView.Choice());
             mainView.ShowResult(output.Item1, output.Item2);
             mainView.UpdateGraph(output.Item3);
         }
