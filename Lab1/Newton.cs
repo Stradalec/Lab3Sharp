@@ -208,12 +208,12 @@ namespace Lab1
             if (string.IsNullOrEmpty(FirstIntervalLimitation.Text) || (mathces = regex.IsMatch(FirstIntervalLimitation.Text)) == false)
             {
                 result = false;
-                MessageBox.Show("Ошибка ввода левого ограничения интервала", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка ввода начального приближения", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (string.IsNullOrEmpty(SecondIntervalLimitation.Text) || (mathces = regex.IsMatch(SecondIntervalLimitation.Text)) == false)
             {
                 result = false;
-                MessageBox.Show("Ошибка ввода правого ограничения интервала", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка ввода значения численного дифференциала", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (string.IsNullOrEmpty(epsilonBox.Text) || (mathces = regex.IsMatch(epsilonBox.Text)) == false)
             {
@@ -239,6 +239,11 @@ namespace Lab1
             {
                 result = false;
                 MessageBox.Show("Ошибка ввода значения числа точек построения положительной стороны функции", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (string.IsNullOrEmpty(IterationBox.Text) || (mathces = regex.IsMatch(IterationBox.Text)) == false)
+            {
+                result = false;
+                MessageBox.Show("Ошибка ввода значения числа итераций", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return result;
         }

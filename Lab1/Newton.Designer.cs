@@ -277,9 +277,9 @@
             this.MethodDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MethodDesignLabel.Location = new System.Drawing.Point(23, 254);
             this.MethodDesignLabel.Name = "MethodDesignLabel";
-            this.MethodDesignLabel.Size = new System.Drawing.Size(269, 20);
+            this.MethodDesignLabel.Size = new System.Drawing.Size(213, 20);
             this.MethodDesignLabel.TabIndex = 52;
-            this.MethodDesignLabel.Text = "Настройка поиска работы метода";
+            this.MethodDesignLabel.Text = "Настройка работы метода";
             // 
             // Newton
             // 
