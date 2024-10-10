@@ -51,12 +51,14 @@
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.IterationLabel = new System.Windows.Forms.Label();
             this.IterationBox = new System.Windows.Forms.TextBox();
+            this.GraphDesignLabel = new System.Windows.Forms.Label();
+            this.MethodDesignLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(33, 196);
+            this.textBox1.Location = new System.Drawing.Point(27, 221);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(69, 20);
             this.textBox1.TabIndex = 45;
@@ -65,7 +67,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 178);
+            this.label7.Location = new System.Drawing.Point(24, 203);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(138, 13);
             this.label7.TabIndex = 44;
@@ -74,7 +76,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(30, 130);
+            this.label6.Location = new System.Drawing.Point(24, 155);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 13);
             this.label6.TabIndex = 43;
@@ -83,7 +85,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(178, 130);
+            this.label5.Location = new System.Drawing.Point(172, 155);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 13);
             this.label5.TabIndex = 42;
@@ -92,7 +94,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(77, 112);
+            this.label4.Location = new System.Drawing.Point(24, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(132, 13);
             this.label4.TabIndex = 41;
@@ -100,7 +102,7 @@
             // 
             // functionLimitBox
             // 
-            this.functionLimitBox.Location = new System.Drawing.Point(33, 146);
+            this.functionLimitBox.Location = new System.Drawing.Point(27, 171);
             this.functionLimitBox.Name = "functionLimitBox";
             this.functionLimitBox.Size = new System.Drawing.Size(69, 20);
             this.functionLimitBox.TabIndex = 40;
@@ -108,7 +110,7 @@
             // 
             // interval
             // 
-            this.interval.Location = new System.Drawing.Point(178, 149);
+            this.interval.Location = new System.Drawing.Point(172, 174);
             this.interval.Name = "interval";
             this.interval.Size = new System.Drawing.Size(69, 20);
             this.interval.TabIndex = 39;
@@ -117,7 +119,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 394);
+            this.label2.Location = new System.Drawing.Point(24, 394);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(278, 13);
             this.label2.TabIndex = 38;
@@ -126,7 +128,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 284);
+            this.label1.Location = new System.Drawing.Point(27, 336);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 37;
@@ -134,7 +136,7 @@
             // 
             // LimitationBox
             // 
-            this.LimitationBox.Location = new System.Drawing.Point(103, 410);
+            this.LimitationBox.Location = new System.Drawing.Point(99, 410);
             this.LimitationBox.Name = "LimitationBox";
             this.LimitationBox.Size = new System.Drawing.Size(69, 20);
             this.LimitationBox.TabIndex = 36;
@@ -142,7 +144,7 @@
             // 
             // epsilonBox
             // 
-            this.epsilonBox.Location = new System.Drawing.Point(21, 300);
+            this.epsilonBox.Location = new System.Drawing.Point(27, 352);
             this.epsilonBox.Name = "epsilonBox";
             this.epsilonBox.Size = new System.Drawing.Size(69, 20);
             this.epsilonBox.TabIndex = 35;
@@ -151,25 +153,25 @@
             // rightLabel
             // 
             this.rightLabel.AutoSize = true;
-            this.rightLabel.Location = new System.Drawing.Point(175, 236);
+            this.rightLabel.Location = new System.Drawing.Point(164, 288);
             this.rightLabel.Name = "rightLabel";
-            this.rightLabel.Size = new System.Drawing.Size(104, 13);
+            this.rightLabel.Size = new System.Drawing.Size(115, 13);
             this.rightLabel.TabIndex = 34;
-            this.rightLabel.Text = "Зн. для числ. дифф";
+            this.rightLabel.Text = "Знач. для числ. дифф";
             // 
             // leftLabel
             // 
             this.leftLabel.AutoSize = true;
-            this.leftLabel.Location = new System.Drawing.Point(24, 236);
+            this.leftLabel.Location = new System.Drawing.Point(24, 288);
             this.leftLabel.Name = "leftLabel";
-            this.leftLabel.Size = new System.Drawing.Size(133, 13);
+            this.leftLabel.Size = new System.Drawing.Size(100, 13);
             this.leftLabel.TabIndex = 33;
-            this.leftLabel.Text = "Начальное приближение";
+            this.leftLabel.Text = "Нач. приближение";
             // 
             // functionLabel
             // 
             this.functionLabel.AutoSize = true;
-            this.functionLabel.Location = new System.Drawing.Point(21, 44);
+            this.functionLabel.Location = new System.Drawing.Point(27, 70);
             this.functionLabel.Name = "functionLabel";
             this.functionLabel.Size = new System.Drawing.Size(83, 13);
             this.functionLabel.TabIndex = 31;
@@ -177,7 +179,7 @@
             // 
             // SecondIntervalLimitation
             // 
-            this.SecondIntervalLimitation.Location = new System.Drawing.Point(178, 252);
+            this.SecondIntervalLimitation.Location = new System.Drawing.Point(167, 304);
             this.SecondIntervalLimitation.Name = "SecondIntervalLimitation";
             this.SecondIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.SecondIntervalLimitation.TabIndex = 30;
@@ -185,7 +187,7 @@
             // 
             // FirstIntervalLimitation
             // 
-            this.FirstIntervalLimitation.Location = new System.Drawing.Point(24, 252);
+            this.FirstIntervalLimitation.Location = new System.Drawing.Point(27, 304);
             this.FirstIntervalLimitation.Name = "FirstIntervalLimitation";
             this.FirstIntervalLimitation.Size = new System.Drawing.Size(69, 20);
             this.FirstIntervalLimitation.TabIndex = 29;
@@ -193,7 +195,7 @@
             // 
             // function
             // 
-            this.function.Location = new System.Drawing.Point(24, 60);
+            this.function.Location = new System.Drawing.Point(30, 86);
             this.function.Name = "function";
             this.function.Size = new System.Drawing.Size(276, 20);
             this.function.TabIndex = 28;
@@ -201,7 +203,7 @@
             // 
             // pvGraph
             // 
-            this.pvGraph.Location = new System.Drawing.Point(312, 34);
+            this.pvGraph.Location = new System.Drawing.Point(312, 12);
             this.pvGraph.Name = "pvGraph";
             this.pvGraph.PanCursor = System.Windows.Forms.Cursors.Hand;
             this.pvGraph.Size = new System.Drawing.Size(476, 413);
@@ -245,7 +247,7 @@
             // IterationLabel
             // 
             this.IterationLabel.AutoSize = true;
-            this.IterationLabel.Location = new System.Drawing.Point(158, 284);
+            this.IterationLabel.Location = new System.Drawing.Point(164, 336);
             this.IterationLabel.Name = "IterationLabel";
             this.IterationLabel.Size = new System.Drawing.Size(89, 13);
             this.IterationLabel.TabIndex = 50;
@@ -253,17 +255,39 @@
             // 
             // IterationBox
             // 
-            this.IterationBox.Location = new System.Drawing.Point(160, 304);
+            this.IterationBox.Location = new System.Drawing.Point(167, 352);
             this.IterationBox.Name = "IterationBox";
             this.IterationBox.Size = new System.Drawing.Size(69, 20);
             this.IterationBox.TabIndex = 49;
             this.IterationBox.Text = "10";
+            // 
+            // GraphDesignLabel
+            // 
+            this.GraphDesignLabel.AutoSize = true;
+            this.GraphDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GraphDesignLabel.Location = new System.Drawing.Point(26, 36);
+            this.GraphDesignLabel.Name = "GraphDesignLabel";
+            this.GraphDesignLabel.Size = new System.Drawing.Size(254, 20);
+            this.GraphDesignLabel.TabIndex = 51;
+            this.GraphDesignLabel.Text = "Настройка построения графика";
+            // 
+            // MethodDesignLabel
+            // 
+            this.MethodDesignLabel.AutoSize = true;
+            this.MethodDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MethodDesignLabel.Location = new System.Drawing.Point(23, 254);
+            this.MethodDesignLabel.Name = "MethodDesignLabel";
+            this.MethodDesignLabel.Size = new System.Drawing.Size(269, 20);
+            this.MethodDesignLabel.TabIndex = 52;
+            this.MethodDesignLabel.Text = "Настройка поиска работы метода";
             // 
             // Newton
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.MethodDesignLabel);
+            this.Controls.Add(this.GraphDesignLabel);
             this.Controls.Add(this.IterationLabel);
             this.Controls.Add(this.IterationBox);
             this.Controls.Add(this.textBox1);
@@ -319,5 +343,7 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         internal System.Windows.Forms.Label IterationLabel;
         private System.Windows.Forms.TextBox IterationBox;
+        private System.Windows.Forms.Label GraphDesignLabel;
+        private System.Windows.Forms.Label MethodDesignLabel;
     }
 }

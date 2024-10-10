@@ -42,6 +42,8 @@ namespace Lab1
         private Rectangle recLimitBox;
         private Rectangle recIterationLabel;
         private Rectangle recIterationBox;
+        private Rectangle recGraphDesignLabel;
+        private Rectangle recMethodDesignLabel;
         public Newton()
         {
             InitializeComponent();
@@ -68,6 +70,8 @@ namespace Lab1
             recLimitBox = new Rectangle(LimitationBox.Location, LimitationBox.Size);
             recIterationLabel = new Rectangle(IterationLabel.Location, IterationLabel.Size);
             recIterationBox = new Rectangle(IterationBox.Location, IterationBox.Size);
+            recGraphDesignLabel = new Rectangle(GraphDesignLabel.Location, GraphDesignLabel.Size);
+            recMethodDesignLabel = new Rectangle(MethodDesignLabel.Location, MethodDesignLabel.Size);
         }
 
         private void AutoResize(Control control, Rectangle rectangle)
@@ -106,6 +110,8 @@ namespace Lab1
             AutoResize(LimitationBox, recLimitBox);
             AutoResize(IterationBox, recIterationBox);
             AutoResize(IterationLabel, recIterationLabel);
+            AutoResize(GraphDesignLabel, recGraphDesignLabel);
+            AutoResize(MethodDesignLabel, recMethodDesignLabel);
         }
         double IView.lowLimit()
         {
