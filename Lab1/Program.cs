@@ -218,7 +218,8 @@ namespace Lab1
             byte choice = 1;
             string max;
             List<double[]> array = new List<double[]>();
-            
+            double leftDerivative = 0;
+            double rightDerivative = 0;
 
             bool IsGood = true;
 
@@ -226,7 +227,7 @@ namespace Lab1
             choice = inputChoice;
             if (choice == 3)
             {
-                inputFunction = "-(" + inputFunction + ")";
+                //inputFunction = "-(" + inputFunction + ")";
             }
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
@@ -267,18 +268,20 @@ namespace Lab1
                         derivative = NumericalDerivative(context, expression, current, step); //Численная производная
                         secondDerivative = NumericalSecondDerivative(context, expression, current, step);
 
-                        // Проверка на ноль
                         if (Math.Abs(secondDerivative) < 1e-10)
                         {
                             IsGood = false;
+                            iteration = Convert.ToInt32(iterationCount);
                             return (double.NaN, double.NaN, array);
                         }
-                        
+
                         next = current - derivative / secondDerivative;
                         context.Variables["x"] = next;
                         array.Add(new double[] { next, expression.Evaluate() });
+                        leftDerivative = NumericalDerivative(context, expression, current - step, step);
+                        rightDerivative = NumericalDerivative(context, expression, current + step, step);
 
-                        if (Math.Abs(derivative) < epsilon)
+                        if (Math.Abs(derivative) < epsilon && leftDerivative < 0 && rightDerivative > 0)
                         {
                             result = current;
                             context.Variables["x"] = result;
@@ -288,24 +291,28 @@ namespace Lab1
                         }
 
                         current = next;
+
+                        
                         break;
                     case 3:
                         context.Variables["x"] = current;
                         derivative = NumericalDerivative(context, expression, current, step); //Численная производная
                         secondDerivative = NumericalSecondDerivative(context, expression, current, step);
 
-                        // Проверка на ноль
                         if (Math.Abs(secondDerivative) < 1e-10)
                         {
                             IsGood = false;
+                            iteration = Convert.ToInt32(iterationCount);
                             return (double.NaN, double.NaN, array);
                         }
 
                         next = current - derivative / secondDerivative;
                         context.Variables["x"] = next;
                         array.Add(new double[] { next, expression.Evaluate() });
+                        leftDerivative = NumericalDerivative(context, expression, current - step, step);
+                        rightDerivative = NumericalDerivative(context, expression, current + step, step);
 
-                        if (Math.Abs(derivative) < epsilon)
+                        if (Math.Abs(derivative) < epsilon && leftDerivative > 0 && rightDerivative < 0)
                         {
                             result = current;
                             context.Variables["x"] = result;
@@ -315,6 +322,8 @@ namespace Lab1
                         }
 
                         current = next;
+
+                        
                         break;
                     default:
                         break;
