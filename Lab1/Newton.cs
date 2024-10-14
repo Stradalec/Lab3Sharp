@@ -213,19 +213,42 @@ namespace Lab1
         {
             result = Math.Round(result, Convert.ToInt16(LimitationBox.Text));
             functionResult = Math.Round(functionResult, Convert.ToInt16(LimitationBox.Text));
-            if (radioButton2.Checked)
+            if (double.IsNaN(result) && !double.IsNaN(functionResult))
             {
-                MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Метод остановлен: производная достигла 0", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (radioButton3.Checked)
+            else if (!double.IsNaN(result) && double.IsNaN(functionResult))
             {
-                functionResult = Math.Abs(functionResult);
-                MessageBox.Show("Максимум:" + result.ToString() + "\n" + "Значение максимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (radioButton2.Checked)
+                {
+                    MessageBox.Show("Метод остановлен: найден максимум, а не минимум. Измените начальное приближение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (radioButton3.Checked)
+                {
+                    MessageBox.Show("Метод остановлен: найден минимум, а не максимум. Измените начальное приближение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else if (radioButton1.Checked)
+            else if (double.IsNaN(result) && double.IsNaN(functionResult))
             {
-                MessageBox.Show("Точка пересечения:" + result.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Метод остановлен: за введённое число итераций он не подошёл к точке. Проверьте, есть ли у функции точки минимума или максимума, либо увеличьте число итераций", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                if (radioButton2.Checked)
+                {
+                    MessageBox.Show("Минимум:" + result.ToString() + "\n" + "Значение минимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (radioButton3.Checked)
+                {
+                    functionResult = Math.Abs(functionResult);
+                    MessageBox.Show("Максимум:" + result.ToString() + "\n" + "Значение максимума:" + functionResult.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (radioButton1.Checked)
+                {
+                    MessageBox.Show("Точка пересечения:" + result.ToString(), "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            
 
         }
 

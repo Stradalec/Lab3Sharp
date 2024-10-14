@@ -220,15 +220,9 @@ namespace Lab1
             List<double[]> array = new List<double[]>();
             double leftDerivative = 0;
             double rightDerivative = 0;
-
-            bool IsGood = true;
-
-            
             choice = inputChoice;
-            if (choice == 3)
-            {
-                //inputFunction = "-(" + inputFunction + ")";
-            }
+            int innerCount = 0;
+
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
             context.Variables["x"] = current;
@@ -245,7 +239,6 @@ namespace Lab1
                         // Проверка на ноль
                         if (Math.Abs(derivative) < 1e-10)
                         {
-                            IsGood = false;
                             return (double.NaN, double.NaN, array);
                         }
                         next = current - function / derivative;
@@ -262,6 +255,7 @@ namespace Lab1
                         }
 
                         current = next;
+                        ++innerCount;
                         break;
                     case 2:
                         context.Variables["x"] = current;
@@ -270,9 +264,8 @@ namespace Lab1
 
                         if (Math.Abs(secondDerivative) < 1e-10)
                         {
-                            IsGood = false;
                             iteration = Convert.ToInt32(iterationCount);
-                            return (double.NaN, double.NaN, array);
+                            return (double.NaN, 0, array);
                         }
 
                         next = current - derivative / secondDerivative;
@@ -289,7 +282,12 @@ namespace Lab1
                             functionResult = expression.Evaluate();
                             break;
                         }
+                        else if (Math.Abs(derivative) < epsilon)
+                        {
+                            return (0, double.NaN, array);
+                        }
 
+                        ++innerCount;
                         current = next;
 
                         
@@ -301,9 +299,8 @@ namespace Lab1
 
                         if (Math.Abs(secondDerivative) < 1e-10)
                         {
-                            IsGood = false;
                             iteration = Convert.ToInt32(iterationCount);
-                            return (double.NaN, double.NaN, array);
+                            return (double.NaN, 0, array);
                         }
 
                         next = current - derivative / secondDerivative;
@@ -320,7 +317,12 @@ namespace Lab1
                             functionResult = expression.Evaluate();
                             break;
                         }
+                        else if (Math.Abs(derivative) < epsilon)
+                        {
+                            return (0, double.NaN, array);
+                        }
 
+                        ++innerCount;
                         current = next;
 
                         
@@ -328,19 +330,12 @@ namespace Lab1
                     default:
                         break;
                 }
-                                                          
+                if (innerCount >= iterationCount && (result == 0 && functionResult ==0))
+                {
+                    return (double.NaN, double.NaN, array);
+                }                                          
             }
-
-            //if (IsGood)
-            //{
-            //    result = next;
-            //    context.Variables["x"] = result;
-            //    expression = context.CompileGeneric<double>(inputFunction);
-            //    functionResult = expression.Evaluate();
-            //    context.Variables["x"] = next;
-            //    array.Add(new double[] { next, expression.Evaluate() });
-            //}
-
+            
             return (result, functionResult, array);
         }
 
